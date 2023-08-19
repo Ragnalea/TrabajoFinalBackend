@@ -1,0 +1,57 @@
+<h1>Carrito de {{firstName}}</h1>
+
+<form action='/api/carts/{{idCart}}' method='delete'>
+    <button type='submit'>Vaciar Carrito</button>
+</form>
+
+<form action='/api/carts/{{idCart}}/purchase/{{email}}' method='post'>
+    <button type='submit'>Comprar</button>
+</form>
+
+{{#if cart.length}}
+<h2 align='center'>Lista de productos</h2>
+<table class='table' id='table' cellPadding='10' border='1' align='center'>
+    <thead>
+    <tr>
+        <th>#id</th>
+        <th>Cantidad</th>
+        <th>Producto</th>
+        <th>Consola</th>
+        <th>Precio</th>
+        <th>Precio total</th>
+        <th>borrar</th>
+    </tr>
+    </thead>
+    <tbody id='productsTable'>
+    {{#each products}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{quantity}}</td>
+            <td>{{title}}</td>
+            <td>{{plataform}}</td>
+            <td>${{price}}</td>
+            <td>({{quantity}} * {{price}})</td>
+            <td>
+                <form action='/api/carts/{{idCart}}/product/{{id}}' method='delete'>
+                    <button type='submit'>Eliminar del carrito</button>
+                </form>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan='5' align='center'>
+        {{#if hasPrevPage}}
+            <a href='/views/products?page={{prevPage}}'>Prev</a>
+        {{/if}}
+        {{#if hasNextPage}}
+            <a href='/views/products?page={{nextPage}}'>Next</a>
+        {{/if}}
+        </td>
+    </tr>
+    </tfoot>
+</table>
+{{else}}
+  <h2>No se han encontrado productos</h2>
+{{/if}}

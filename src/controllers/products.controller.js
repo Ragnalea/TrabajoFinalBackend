@@ -153,6 +153,7 @@ export const deleteProducts = async (req, res, next) => {
 export const deleteProductsById = async (req, res, next) => {
   try {
     const { pid } = req.params;
+    console.log(pid);
     const products = await deleteOneProduct(pid);
     res.status(200).json({ products });
   } catch (error) {

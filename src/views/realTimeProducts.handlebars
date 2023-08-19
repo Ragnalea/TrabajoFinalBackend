@@ -3,12 +3,16 @@
   <form action='/register/logout' method='post'>
   <button type='submit'> LOGOUT</button>
 </form>
-  <h2 align='center'>Lista de productos</h2>
 
-<form action='/views/products/{{cart}}' method='get'>
-  <button type='submit'>Comprar productos</button>
+<h2>¿Deseas hablar con otros aventureros? Unete al chat</h2>
+<button onclick="location.href='/views/chat'">Entrar al Chat</button>
+
+<h2>ABM productos, aqui</h2>
+<form action='/views/abmProd/' method='get'>
+  <button type='submit'>ABM productos</button>
 </form>
 
+  <h2 align='center'>Lista de productos</h2>
   <table class='table' id='table' cellPadding='10' border='1' align='center'>
     <thead>
       <tr>
@@ -16,7 +20,7 @@
         <th>Producto</th>
         <th>Consola</th>
         <th>Precio</th>
-        <th>Delete</th>
+        <th></th>
       </tr>
     </thead>
     <tbody id='productsTable'>
@@ -27,8 +31,8 @@
           <td>{{plataform}}</td>
           <td>${{price}}</td>
           <td>
-            <form action='/api/products/{{role}}/{{email}}/{{id}}' method='delete'>
-                <button type='submit'> Borrar </button>
+            <form action='/api/carts/64dd0734c3b03ed06f97a2a1/product/{{id}}' method='post'>
+                <button type='submit'>Agregar al carrito</button>
             </form>
           </td>
         </tr>
@@ -39,20 +43,6 @@
   <h2>Lo sentimos, no se han encontrado productos</h2>
 {{/if}}
 
-<br />
-<br />
-
-<h2 align='center'>Agregar un Productos</h2>
-
-<form action='/api/products/' method='post'>
-  <input type='text' id='pTitle' name='title' placeholder='Titulo' />
-  <input type='text' id='plataform' name='plataform' placeholder='Consola' />
-  <input type='text' id='img' name='img' placeholder='imagen' />
-  <input type='number' id='pPrice' name='price' placeholder='precio' />
-  <input type='text' id='pCode' name='code' placeholder='codigo' />
-  <input type='number' id='pStock' name='stock' placeholder='stock' />
-  <input type='submit' value='Agregar Producto'/>
-</form>
 
 <script src='/socket.io/socket.io.js'></script>
 <script src='/js/index.js'></script>

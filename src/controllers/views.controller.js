@@ -37,7 +37,7 @@ export const getRealTimeProducts = async (req, res, next) => {
       res.render('realTimeProducts', { products: products.docs });
     } else {
       
-      res.render('realTimeProducts', { products: products.docs, firstName: req.user.firstName, cart: req.user.cart, role: req.user.role});
+      res.render('realTimeProducts', { products: products.docs, firstName: req.user.firstName, cart: req.user.cart, role: req.user.role, email: req.user.email});
     }
   } catch (error) {
     next(error);

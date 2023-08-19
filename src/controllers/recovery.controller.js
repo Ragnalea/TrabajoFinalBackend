@@ -64,7 +64,7 @@ export const recover = async (req, res) => {
   //send mail with options
   let mail = {
     from: 'coderhousemailer@gmail.com',
-    to: 'pmilitelloaveni@gmail.com',
+    to: 'lealean20@gmail.com',
     subject: 'Test',
     context: {
       firstName: user.firstName,

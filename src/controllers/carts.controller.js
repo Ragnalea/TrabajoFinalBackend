@@ -11,6 +11,7 @@ import {
 } from '../services/carts.services.js';
 import CustomError from '../services/errors/CustomError.js';
 import { ErrorMessage } from '../services/errors/error.enum.js';
+import { logger } from '../utils/winston.js';
 
 export const getCartByIdPopulated = async (req, res, next) => {
   try {
@@ -42,7 +43,8 @@ export const addProductsToCart = async (req, res, next) => {
   try {
     const { cid, pid } = req.params;
     const newCart = await productsToCart(cid, pid);
-    res.status(200).json(newCart);
+    logger.info(json({ message: 'product added', newCart }));
+    res.render('products', { products: products.docs, firstName: req.user.firstName, cart: req.user.cart, role: req.user.role});
   } catch (error) {
     next(error);
   }

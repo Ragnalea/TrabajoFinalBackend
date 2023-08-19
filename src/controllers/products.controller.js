@@ -1,5 +1,7 @@
+import { logger } from '../utils/winston.js';
 import CustomError from '../services/errors/CustomError.js';
 import { ErrorMessage } from '../services/errors/error.enum.js';
+import { productManager } from '../DAL/DAOs/productsDaos/ProductsManagerMongo.js';
 import {
   createOneProduct,
   deleteAllProducts,
@@ -9,6 +11,7 @@ import {
   updateOneProduct,
 } from '../services/products.services.js';
 import { validateBoolean, validateInteger, validateSort } from '../utils/utils.js';
+
 
 export const getProducts = async (req, res, next) => {
   try {
@@ -119,7 +122,9 @@ export const addProducts = async (req, res, next) => {
     const obj = req.body;
     obj.owner = req.user.email;
     const newProduct = await createOneProduct(obj);
-    res.status(201).json({ message: 'Product created', product: newProduct });
+    logger.info({ message: 'Product created', product: newProduct });
+    const products = await productManager.findAll(100, 0, undefined, undefined, undefined, true);
+    res.render('realTimeProducts', { products: products.docs, firstName: req.user.firstName, cart: req.user.cart, role: req.user.role});
   } catch (error) {
     next(error);
   }

@@ -64,7 +64,7 @@ export const recover = async (req, res) => {
   //send mail with options
   let mail = {
     from: 'coderhousemailer@gmail.com',
-    to: 'lealean20@gmail.com',
+    to: email,
     subject: 'Test',
     context: {
       firstName: user.firstName,
@@ -80,8 +80,8 @@ export const recover = async (req, res) => {
         status: 401,
       });
     } else {
-      logger.info(`Message sent!!!`);
-      res.status(200).json({ message: 'Email sent successfully' });
+      logger.info(`Mensaje Enviado`);
+      res.status(200).json({ message: 'El mail ya fue enviado' });
     }
   });
 };
@@ -98,7 +98,7 @@ export const changePass = async (req, res, next) => {
     }
     if (await compareData(password, user.password)) {
       CustomError.createCustomError({
-        message: "New password can't be the same as before",
+        message: "No puedes usar una contraseña que ya hayas usado",
         status: 400,
       });
     }
